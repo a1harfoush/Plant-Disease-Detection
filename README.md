@@ -154,9 +154,6 @@ TRAINING_CONFIG = {"batch_size": 16}
 - [PlantVillage Dataset](https://www.kaggle.com/datasets/abdallahalidev/plantvillage-dataset)
 - [PyTorch Transfer Learning](https://pytorch.org/tutorials/beginner/transfer_learning_tutorial.html)
 
-## 🤝 Contributing
-
-Contributions are welcome! Feel free to submit a Pull Request.
 
 ## 📄 License
 
@@ -168,6 +165,3 @@ This project is licensed under the MIT License.
 - PyTorch and torchvision teams
 - ResNet authors (He et al.)
 
----
-
-**Made with ❤️ for the agricultural AI community**
