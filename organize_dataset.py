@@ -13,31 +13,37 @@ import random
 random.seed(42)
 
 # Configuration
-SOURCE_DIR = "plantvillage_data"  # Adjust based on extracted folder name
+SOURCE_DIR = "plantvillage_data/plantvillage dataset/color"  # Actual PlantVillage structure
 TARGET_DIR = "data"
 TRAIN_RATIO = 0.7
 VAL_RATIO = 0.15
 TEST_RATIO = 0.15
 
-# Class mapping - adjust based on your PlantVillage structure
-# This maps PlantVillage folder names to our 4 categories
+# Class mapping - Maps PlantVillage folder names to our 4 categories
+# Using actual folder names from PlantVillage dataset
 CLASS_MAPPING = {
     "Healthy": [
-        "Tomato_healthy",
-        "Potato_healthy",
-        "Pepper_bell_healthy",
+        "Tomato___healthy",
+        "Potato___healthy",
+        "Pepper,_bell___healthy",
+        "Apple___healthy",
+        "Corn_(maize)___healthy",
+        "Grape___healthy",
     ],
     "Bacterial_Blight": [
-        "Tomato_Bacterial_spot",
-        "Pepper_bell_Bacterial_spot",
+        "Tomato___Bacterial_spot",
+        "Pepper,_bell___Bacterial_spot",
     ],
     "Leaf_Spot": [
-        "Tomato_Septoria_leaf_spot",
-        "Tomato_Leaf_Mold",
+        "Tomato___Septoria_leaf_spot",
+        "Tomato___Leaf_Mold",
+        "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
     ],
     "Rust": [
-        "Tomato_Early_blight",
-        "Tomato_Late_blight",
+        "Tomato___Early_blight",
+        "Tomato___Late_blight",
+        "Corn_(maize)___Common_rust_",
+        "Apple___Cedar_apple_rust",
     ]
 }
 
