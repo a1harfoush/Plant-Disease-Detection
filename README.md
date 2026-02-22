@@ -23,7 +23,6 @@ This project uses transfer learning with a pre-trained ResNet50 model to classif
 - 🎓 **Transfer learning** - Leverages ImageNet pre-trained ResNet50
 - 📊 **Comprehensive visualizations** - Training curves, confusion matrix, predictions
 - ⚙️ **Easy customization** - Simple config file for hyperparameters
-- 📚 **Extensive documentation** - Multiple guides for all skill levels
 - 🔧 **Production-ready** - Error handling, best practices, and deployment tips
 
 ## 🚀 Quick Start
@@ -106,15 +105,6 @@ After training (15 epochs, ~10-15 min with GPU):
 - **Loss**: CrossEntropyLoss with label smoothing (0.1)
 - **Regularization**: Dropout (0.4), BatchNorm, Data Augmentation
 
-## 📚 Documentation
-
-- **[START_HERE.md](START_HERE.md)** - Quick welcome and overview
-- **[QUICKSTART.md](QUICKSTART.md)** - 5-step fast setup guide
-- **[COMPLETE_GUIDE.md](COMPLETE_GUIDE.md)** - Detailed walkthrough (13KB)
-- **[ARCHITECTURE.md](ARCHITECTURE.md)** - Model architecture deep dive (8KB)
-- **[PROJECT_CHECKLIST.md](PROJECT_CHECKLIST.md)** - Progress tracking
-- **[INDEX.md](INDEX.md)** - Navigation guide for all files
-
 ## 🔧 Customization
 
 Edit `config.py` to modify:
@@ -164,8 +154,6 @@ TRAINING_CONFIG = {"batch_size": 16}  # or 8
 - Adjust learning rates
 - Add more training data
 
-For more help, see [COMPLETE_GUIDE.md](COMPLETE_GUIDE.md) → Troubleshooting section.
-
 ## 📈 Performance
 
 | Metric | Value |
@@ -197,14 +185,7 @@ Plant-Disease-Detection/
 │   └── config.py                       # Configuration file
 │
 ├── 📚 Documentation
-│   ├── START_HERE.md                   # Quick start guide
-│   ├── README.md                       # This file
-│   ├── QUICKSTART.md                   # 5-step setup
-│   ├── COMPLETE_GUIDE.md               # Detailed walkthrough
-│   ├── ARCHITECTURE.md                 # Model architecture
-│   ├── PROJECT_SUMMARY.md              # High-level overview
-│   ├── PROJECT_CHECKLIST.md            # Progress tracker
-│   └── INDEX.md                        # Navigation guide
+│   └── README.md                       # This file
 │
 ├── ⚙️ Setup
 │   ├── requirements.txt                # Python dependencies
