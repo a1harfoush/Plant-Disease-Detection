@@ -4,167 +4,139 @@
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.0+-red.svg)](https://pytorch.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-A complete deep learning project demonstrating transfer learning for agricultural image classification. Fine-tunes ResNet50 to identify plant diseases from leaf images with 85-95% accuracy.
-
-![Training Results](training_curves.png)
+A deep learning project for plant disease classification using transfer learning with ResNet50. Classifies leaf images into 4 disease categories with 85-95% accuracy.
 
 ## 🎯 Overview
 
-This project uses transfer learning with a pre-trained ResNet50 model to classify plant leaf images into 4 disease categories:
-- **Healthy** - No disease present
+This project fine-tunes a pre-trained ResNet50 model to classify plant leaf images into:
+- **Healthy** - No disease
 - **Bacterial Blight** - Bacterial infection
-- **Leaf Spot** - Fungal spots on leaves
-- **Rust** - Rust disease symptoms
+- **Leaf Spot** - Fungal spots
+- **Rust** - Rust disease
 
 ## ✨ Features
 
-- 🚀 **One-command setup** - Automated dataset download and organization
-- 📓 **Interactive Jupyter notebook** - Step-by-step training with explanations
-- 🎓 **Transfer learning** - Leverages ImageNet pre-trained ResNet50
-- 📊 **Comprehensive visualizations** - Training curves, confusion matrix, predictions
-- ⚙️ **Easy customization** - Simple config file for hyperparameters
-- 📚 **Extensive documentation** - Multiple guides for all skill levels
-- 🔧 **Production-ready** - Error handling, best practices, and deployment tips
+- 🚀 Transfer learning with ResNet50 (ImageNet pre-trained)
+- 📓 Interactive Jupyter notebook with step-by-step training
+- 📊 Comprehensive visualizations (training curves, confusion matrix, predictions)
+- ⚙️ Easy configuration via `config.py`
+- 🔧 Automated dataset organization
+- 📈 Real-time training progress tracking
 
 ## 🚀 Quick Start
 
 ### Prerequisites
-- Python 3.8 or higher
+- Python 3.8+
 - 8GB RAM (16GB recommended)
 - GPU with CUDA (optional but recommended)
 - 5GB free disk space
 
 ### Installation
 
-**Option 1: Automated Setup (Recommended)**
-
-Windows:
-```cmd
-pip install -r requirements.txt
-setup.bat
-jupyter notebook plant_disease_finetuning.ipynb
-```
-
-Linux/Mac:
-```bash
-pip install -r requirements.txt
-chmod +x setup.sh && ./setup.sh
-jupyter notebook plant_disease_finetuning.ipynb
-```
-
-**Option 2: Manual Setup**
-
-1. Install dependencies:
+1. **Install dependencies:**
 ```bash
 pip install -r requirements.txt
 ```
 
-2. Setup Kaggle API (for dataset download):
+2. **Setup Kaggle API:**
    - Create account at [kaggle.com](https://www.kaggle.com)
    - Go to Account → API → "Create New API Token"
    - Place `kaggle.json` in:
      - Windows: `C:\Users\<YourUsername>\.kaggle\`
      - Linux/Mac: `~/.kaggle/`
-   - Linux/Mac only: `chmod 600 ~/.kaggle/kaggle.json`
 
-3. Download and organize dataset:
+3. **Download and organize dataset:**
 ```bash
 kaggle datasets download -d abdallahalidev/plantvillage-dataset
 python organize_dataset.py
 ```
 
-4. Run training:
+4. **Run training:**
 ```bash
 jupyter notebook plant_disease_finetuning.ipynb
 ```
 
 ## 📊 Results
 
-After training (15 epochs, ~10-15 min with GPU):
+After training (15 epochs):
 - **Validation Accuracy**: 85-95%
+- **Training Time**: 10-15 min (GPU) / 2-3 hours (CPU)
 - **Model Size**: ~90 MB
-- **Trainable Parameters**: ~2M (8% of total)
 
 ### Output Files
 - `outputs/best_model.pth` - Trained model weights
 - `outputs/training_results.png` - Loss/accuracy curves + confusion matrix
-- `outputs/sample_predictions.png` - Visual predictions on test images
+- `outputs/sample_predictions.png` - Visual predictions
 
 ## 🏗️ Model Architecture
 
-### Transfer Learning Strategy
-- **Base Model**: ResNet50 pre-trained on ImageNet
-- **Frozen Layers**: conv1, bn1, layer1, layer2, layer3 (low-level features)
+- **Base**: ResNet50 (ImageNet pre-trained)
+- **Frozen Layers**: conv1, bn1, layer1, layer2, layer3
 - **Trainable Layers**: layer4 + custom classification head
 - **Custom Head**: 2048 → 512 → 128 → 4 classes
 
 ### Training Configuration
 - **Optimizer**: AdamW with differential learning rates
-  - Backbone (layer4): 1e-5
-  - Classification head: 1e-3
 - **Scheduler**: Cosine Annealing
-- **Loss**: CrossEntropyLoss with label smoothing (0.1)
-- **Regularization**: Dropout (0.4), BatchNorm, Data Augmentation
-
-## 📚 Documentation
-
-- **[START_HERE.md](START_HERE.md)** - Quick welcome and overview
-- **[QUICKSTART.md](QUICKSTART.md)** - 5-step fast setup guide
-- **[COMPLETE_GUIDE.md](COMPLETE_GUIDE.md)** - Detailed walkthrough (13KB)
-- **[ARCHITECTURE.md](ARCHITECTURE.md)** - Model architecture deep dive (8KB)
-- **[PROJECT_CHECKLIST.md](PROJECT_CHECKLIST.md)** - Progress tracking
-- **[INDEX.md](INDEX.md)** - Navigation guide for all files
+- **Loss**: CrossEntropyLoss with label smoothing
+- **Regularization**: Dropout, BatchNorm, Data Augmentation
 
 ## 🔧 Customization
 
 Edit `config.py` to modify:
-- Number of epochs
-- Batch size
-- Learning rates
-- Dropout rate
-- Data augmentation parameters
-- And more!
-
-Example:
 ```python
 TRAINING_CONFIG = {
-    "num_epochs": 20,      # Increase for better accuracy
-    "batch_size": 16,      # Reduce if out of memory
-    "lr_head": 1e-3,
-    "lr_backbone": 1e-5,
+    "num_epochs": 15,      # Number of training epochs
+    "batch_size": 32,      # Batch size
+    "lr_head": 1e-3,       # Learning rate for classification head
+    "lr_backbone": 1e-5,   # Learning rate for backbone
 }
+```
+
+## 📁 Project Structure
+
+```
+Plant-Disease-Detection/
+├── plant_disease_finetuning.ipynb  # Main notebook
+├── plant_disease_finetuning.py     # Python script version
+├── organize_dataset.py             # Dataset preparation
+├── config.py                       # Configuration
+├── requirements.txt                # Dependencies
+├── setup.bat                       # Windows setup
+├── setup.sh                        # Linux/Mac setup
+├── setup_kaggle.bat                # Kaggle API setup
+├── README.md                       # This file
+├── data/                           # Dataset (train/val/test)
+└── outputs/                        # Results & model
 ```
 
 ## 🎓 What You'll Learn
 
-- Transfer learning concepts and implementation
+- Transfer learning concepts
 - Fine-tuning pre-trained models
-- PyTorch workflows and best practices
+- PyTorch workflows
 - Data augmentation strategies
-- Model evaluation and visualization
+- Model evaluation techniques
 - Hyperparameter tuning
-- Production-ready ML project structure
 
 ## 🐛 Troubleshooting
 
 ### CUDA Out of Memory
 Reduce batch size in `config.py`:
 ```python
-TRAINING_CONFIG = {"batch_size": 16}  # or 8
+TRAINING_CONFIG = {"batch_size": 16}
 ```
 
 ### Kaggle API Error
-- Verify `kaggle.json` is in the correct location
-- Check file permissions (Linux/Mac): `chmod 600 ~/.kaggle/kaggle.json`
-- Run `setup_kaggle.bat` for automated setup (Windows)
+- Verify `kaggle.json` location
+- Check file permissions: `chmod 600 ~/.kaggle/kaggle.json`
+- Run `setup_kaggle.bat` (Windows)
 
 ### Low Accuracy
-- Increase number of epochs (20-30)
-- Unfreeze more layers: `MODEL_CONFIG = {"unfreeze_layer": "layer3"}`
+- Increase epochs: `"num_epochs": 25`
+- Unfreeze more layers: `"unfreeze_layer": "layer3"`
 - Adjust learning rates
 - Add more training data
-
-For more help, see [COMPLETE_GUIDE.md](COMPLETE_GUIDE.md) → Troubleshooting section.
 
 ## 📈 Performance
 
@@ -176,63 +148,15 @@ For more help, see [COMPLETE_GUIDE.md](COMPLETE_GUIDE.md) → Troubleshooting se
 | Model Size | ~90 MB |
 | Inference Time | <50ms per image |
 
-## 🚀 Next Steps
-
-After completing the basic training:
-1. Try different architectures (EfficientNet, Vision Transformer)
-2. Implement cross-validation
-3. Add more disease classes
-4. Deploy as web API (Flask/FastAPI)
-5. Build mobile app interface
-6. Implement Grad-CAM visualization
-7. Create ensemble of models
-
-## 📁 Project Structure
-```
-Plant-Disease-Detection/
-├── 📓 Notebooks & Scripts
-│   ├── plant_disease_finetuning.ipynb  # Main Jupyter notebook
-│   ├── plant_disease_finetuning.py     # Python script version
-│   ├── organize_dataset.py             # Dataset preparation
-│   └── config.py                       # Configuration file
-│
-├── 📚 Documentation
-│   ├── START_HERE.md                   # Quick start guide
-│   ├── README.md                       # This file
-│   ├── QUICKSTART.md                   # 5-step setup
-│   ├── COMPLETE_GUIDE.md               # Detailed walkthrough
-│   ├── ARCHITECTURE.md                 # Model architecture
-│   ├── PROJECT_SUMMARY.md              # High-level overview
-│   ├── PROJECT_CHECKLIST.md            # Progress tracker
-│   └── INDEX.md                        # Navigation guide
-│
-├── ⚙️ Setup
-│   ├── requirements.txt                # Python dependencies
-│   ├── setup.bat                       # Windows setup script
-│   ├── setup.sh                        # Linux/Mac setup script
-│   ├── setup_kaggle.bat                # Kaggle API helper
-│   └── .gitignore                      # Git ignore rules
-│
-├── 📊 Examples (Generated after training)
-│   ├── architecture.png
-│   ├── confusion_matrix.png
-│   ├── per_class_metrics.png
-│   └── training_curves.png
-│
-└── 📁 Generated Directories
-    ├── data/                           # Dataset (train/val/test)
-    └── outputs/                        # Model weights & results
-```
-
 ## 📖 References
 
-- [ResNet Paper](https://arxiv.org/abs/1512.03385) - Deep Residual Learning for Image Recognition
+- [ResNet Paper](https://arxiv.org/abs/1512.03385) - Deep Residual Learning
 - [PlantVillage Dataset](https://www.kaggle.com/datasets/abdallahalidev/plantvillage-dataset)
-- [PyTorch Transfer Learning Tutorial](https://pytorch.org/tutorials/beginner/transfer_learning_tutorial.html)
+- [PyTorch Transfer Learning](https://pytorch.org/tutorials/beginner/transfer_learning_tutorial.html)
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+Contributions are welcome! Feel free to submit a Pull Request.
 
 ## 📄 License
 
@@ -243,10 +167,6 @@ This project is licensed under the MIT License.
 - PlantVillage dataset contributors
 - PyTorch and torchvision teams
 - ResNet authors (He et al.)
-
-## 📧 Contact
-
-For questions or feedback, please open an issue on GitHub.
 
 ---
 
